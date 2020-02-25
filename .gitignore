@@ -1,0 +1,11 @@
+/.settings/
+/target/
+/.classpath
+/.project
+/.springBeans
+
+### IntelliJ IDEA ###
+.idea
+*.iws
+*.iml
+*.ipr
