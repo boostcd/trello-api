@@ -32,15 +32,12 @@ parameters:
 - description: Defines the product that this template is related to
   name: PRODUCT
   required: true  
-- description: Defines the openshift host and port
-  name: OPENSHIFT_HOST_PORT
+- description: Defines the trello access token
+  name: TRELLO_ACCESS_TOKEN
   required: true     
-- description: Defines the openshift admin user
-  name: OPENSHIFT_USER
-  required: true     
-- description: Defines the openshift admin password
-  name: OPENSHIFT_PASSWORD
-  required: true        
+- description: Defines the trello api key
+  name: TRELLO_API_KEY
+  required: true          
 objects:
 - apiVersion: v1
   kind: DeploymentConfig
@@ -78,12 +75,10 @@ objects:
           - env:
               - name: PRODUCT
                 value: ${PRODUCT}          
-              - name: OPENSHIFT_HOST_PORT
-                value: ${OPENSHIFT_HOST_PORT}   
-              - name: OPENSHIFT_USER
-                value: ${OPENSHIFT_USER}   
-              - name: OPENSHIFT_PASSWORD
-                value: ${OPENSHIFT_PASSWORD}             
+              - name: TRELLO_ACCESS_TOKEN
+                value: ${TRELLO_ACCESS_TOKEN}   
+              - name: TRELLO_API_KEY
+                value: ${TRELLO_API_KEY}              
               - name: JAEGER_SAMPLER_TYPE
                 value: const
               - name: JAEGER_SAMPLER_PARAM
