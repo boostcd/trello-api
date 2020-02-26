@@ -27,7 +27,13 @@ public class TrelloDAO {
         queryParams.add("token", "445bae1e72caf59a8a78fe00c5ce36852a33a2b44a6f4d42e916804059be89ec");
         ClientResponse response = webResource.queryParams(queryParams).get(ClientResponse.class);
 
-        int statusCode = response!=null ? response.getStatus():null;
+        int statusCode = 0;
+        if(response!=null){
+            statusCode = response.getStatus();
+        } else {
+            logger.error("no any response");
+            return null;
+        }
 
         if (statusCode == 401) {
             logger.error("unauthorized card permission requested");
