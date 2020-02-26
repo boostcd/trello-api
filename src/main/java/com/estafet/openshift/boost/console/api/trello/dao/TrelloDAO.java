@@ -27,7 +27,7 @@ public class TrelloDAO {
         queryParams.add("token", "445bae1e72caf59a8a78fe00c5ce36852a33a2b44a6f4d42e916804059be89ec");
         ClientResponse response = webResource.queryParams(queryParams).get(ClientResponse.class);
 
-        int statusCode = 0;
+        int statusCode;
         if(response!=null){
             statusCode = response.getStatus();
         } else {
