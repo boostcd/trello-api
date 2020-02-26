@@ -68,11 +68,7 @@ public class TrelloDAO {
         ClientResponse response = webResource.queryParams(queryParams).get(ClientResponse.class);
 
         JSONObject jsonObj = new JSONObject(response.getEntity(String.class));
-        String status = jsonObj.getString("name");
-
-        System.out.println("status = " + status);
-
-        return status;
+        return jsonObj.getString("name");
 
     }
 
