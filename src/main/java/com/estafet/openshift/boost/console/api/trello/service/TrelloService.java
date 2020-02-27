@@ -1,8 +1,7 @@
 package com.estafet.openshift.boost.console.api.trello.service;
 
-import com.estafet.openshift.boost.console.api.trello.model.Card;
-import com.estafet.openshift.boost.messages.model.FeatureMessage;
+import com.estafet.openshift.boost.messages.model.CommitMessage;
 
 public interface TrelloService {
-    FeatureMessage getTrelloCardDetails(String url, String commitId);
+    void getTrelloCardDetails(String url, CommitMessage commitMessage);
 }

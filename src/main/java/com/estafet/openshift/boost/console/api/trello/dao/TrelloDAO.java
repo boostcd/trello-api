@@ -1,7 +1,10 @@
 package com.estafet.openshift.boost.console.api.trello.dao;
 
+import com.estafet.openshift.boost.console.api.trello.jms.CardDetailsProducer;
 import com.estafet.openshift.boost.console.api.trello.model.Card;
+import com.estafet.openshift.boost.messages.model.CommitMessage;
 import com.estafet.openshift.boost.messages.model.FeatureMessage;
+import com.estafet.openshift.boost.messages.model.FeatureStatus;
 import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
@@ -9,6 +12,7 @@ import com.sun.jersey.core.util.MultivaluedMapImpl;
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import javax.ws.rs.core.MultivaluedMap;
@@ -16,12 +20,15 @@ import javax.ws.rs.core.MultivaluedMap;
 @Repository
 public class TrelloDAO {
 
+    @Autowired
+    private CardDetailsProducer cardDetailsProducer;
+
     Logger logger = LoggerFactory.getLogger(TrelloDAO.class);
 
-    public FeatureMessage getTrelloCardDetails(String url, String commitId) {
+    public void getTrelloCardDetails(String url, CommitMessage commitMessage) {
 
         Client client = Client.create();
-        WebResource webResource =client.resource("https://trello.com/c/KqKTMPzR.json?");
+        WebResource webResource =client.resource(url);
         MultivaluedMap<String, String> queryParams = new MultivaluedMapImpl();
         queryParams.add("key", "09a45b6ad328484d8ed4c130e99494d4");
         queryParams.add("token", "445bae1e72caf59a8a78fe00c5ce36852a33a2b44a6f4d42e916804059be89ec");
@@ -31,23 +38,25 @@ public class TrelloDAO {
         if(response!=null){
             statusCode = response.getStatus();
         } else {
-            logger.error("no any response");
-            return null;
+            logger.error("no any Trello's response");
+            return;
         }
 
         if (statusCode == 401) {
             logger.error("unauthorized card permission requested");
+            return;
         }
-        Card card =null;
+
         if (statusCode == 200){
-            card = Card.fromJSON(response.getEntity(String.class));
+            Card card = Card.fromJSON(response.getEntity(String.class));
             String cardId = card.getId();
 
             String cardStatus = getStatus(cardId);
             card.setStatus(cardStatus);
-        }
 
-        return mapping(card, commitId);
+            FeatureMessage featureMessage = mapping(card, commitMessage);
+            cardDetailsProducer.sendMessage(featureMessage);
+        }
 
         // status - name -- 				https://api.trello.com/1/cards/5e4e6b708116903d69587195/list?key=09a45b6ad328484d8ed4c130e99494d4
 
@@ -72,16 +81,32 @@ public class TrelloDAO {
 
     }
 
-    public FeatureMessage mapping(Card card, String commitId) {
+    public FeatureMessage mapping(Card card, CommitMessage commitMessage) {
         if(card == null){
             return null;
         }
 
+        FeatureStatus status = null;
+//TODO
+/*       if(card.getStatus().equals(FeatureStatus.DONE.name())){
+            status=FeatureStatus.DONE;
+        }
+        if(card.getStatus().equals(FeatureStatus.IN_PROGRESS.name())){
+            status=FeatureStatus.IN_PROGRESS;
+        }
+
+        if(card.getStatus().equals(FeatureStatus.NOT_STARTED.name())){
+            status=FeatureStatus.NOT_STARTED;
+        }
+ */
+
         return FeatureMessage.builder()
-                .setCommitId(commitId)
+                .setFeatureId(card.getId())
+                .setCommitId(commitMessage.getCommitId())
+                .setRepo(commitMessage.getRepo())
                 .setTitle(card.getTitle())
                 .setDescription(card.getDescription())
-//                .setStatus(card.getStatus())
+                .setStatus(status)
                 .setLastUpdated(card.getLastUpdated())
                 .build();
 

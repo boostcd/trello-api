@@ -1,11 +1,20 @@
 package com.estafet.openshift.boost.console.api.trello;
 
+import io.opentracing.Tracer;
+import io.opentracing.contrib.jms.spring.TracingJmsTemplate;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
-import org.springframework.boot.web.client.RestTemplateBuilder;
+import org.springframework.boot.autoconfigure.jms.DefaultJmsListenerContainerFactoryConfigurer;
 import org.springframework.context.annotation.Bean;
-import org.springframework.web.client.RestTemplate;
+import org.springframework.jms.annotation.EnableJms;
+import org.springframework.jms.config.DefaultJmsListenerContainerFactory;
+import org.springframework.jms.config.JmsListenerContainerFactory;
+import org.springframework.jms.core.JmsTemplate;
+import org.springframework.jms.support.converter.SimpleMessageConverter;
 
+import javax.jms.ConnectionFactory;
+
+@EnableJms
 @SpringBootApplication
 public class Application {
 
@@ -21,7 +30,17 @@ public class Application {
     }
 
     @Bean
-    public RestTemplate restTemplate(RestTemplateBuilder restTemplateBuilder) {
-        return restTemplateBuilder.build();
+    public JmsTemplate jmsTemplate(ConnectionFactory connectionFactory, Tracer tracer) {
+        JmsTemplate jmsTemplate = new TracingJmsTemplate(connectionFactory, tracer);
+        jmsTemplate.setMessageConverter(new SimpleMessageConverter());
+        return jmsTemplate;
+    }
+
+    @Bean
+    public JmsListenerContainerFactory<?> myFactory(ConnectionFactory connectionFactory,
+                                                    DefaultJmsListenerContainerFactoryConfigurer configurer) {
+        DefaultJmsListenerContainerFactory factory = new DefaultJmsListenerContainerFactory();
+        configurer.configure(factory, connectionFactory);
+        return factory;
     }
 }
