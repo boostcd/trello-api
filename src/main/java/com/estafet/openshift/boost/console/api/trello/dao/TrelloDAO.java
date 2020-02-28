@@ -30,8 +30,8 @@ public class TrelloDAO {
         Client client = Client.create();
         WebResource webResource =client.resource(url);
         MultivaluedMap<String, String> queryParams = new MultivaluedMapImpl();
-        queryParams.add("key", "09a45b6ad328484d8ed4c130e99494d4");
-        queryParams.add("token", "445bae1e72caf59a8a78fe00c5ce36852a33a2b44a6f4d42e916804059be89ec");
+        queryParams.add("key", getTrelloApiKey());
+        queryParams.add("token", getTrelloAccessToken());
         ClientResponse response = webResource.queryParams(queryParams).get(ClientResponse.class);
 
         int statusCode;
@@ -72,8 +72,8 @@ public class TrelloDAO {
         Client client = Client.create();
         WebResource webResource =client.resource("https://api.trello.com/1/cards/" + cardId + "/list?");
         MultivaluedMap<String, String> queryParams = new MultivaluedMapImpl();
-        queryParams.add("key", "09a45b6ad328484d8ed4c130e99494d4");
-        queryParams.add("token", "445bae1e72caf59a8a78fe00c5ce36852a33a2b44a6f4d42e916804059be89ec");
+        queryParams.add("key", getTrelloApiKey());
+        queryParams.add("token", getTrelloAccessToken());
         ClientResponse response = webResource.queryParams(queryParams).get(ClientResponse.class);
 
         JSONObject jsonObj = new JSONObject(response.getEntity(String.class));
@@ -118,5 +118,13 @@ public class TrelloDAO {
             status=FeatureStatus.BLOCKED;
         }
         return status;
+    }
+
+    private String getTrelloApiKey() {
+        return System.getenv("TRELLO_API_KEY");
+    }
+
+    private String getTrelloAccessToken() {
+        return System.getenv("TRELLO_ACCESS_TOKEN");
     }
 }

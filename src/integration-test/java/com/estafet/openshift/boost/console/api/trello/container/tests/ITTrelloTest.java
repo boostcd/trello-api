@@ -1,6 +1,5 @@
 package com.estafet.openshift.boost.console.api.trello.container.tests;
 
-import com.estafet.openshift.boost.commons.lib.properties.PropertyUtils;
 import com.estafet.openshift.boost.console.api.trello.model.Card;
 import com.estafet.openshift.boost.messages.model.CommitMessage;
 import com.estafet.openshift.boost.messages.model.FeatureMessage;
@@ -8,32 +7,22 @@ import com.sun.jersey.api.client.Client;
 import com.sun.jersey.api.client.ClientResponse;
 import com.sun.jersey.api.client.WebResource;
 import com.sun.jersey.core.util.MultivaluedMapImpl;
-import io.restassured.RestAssured;
 import org.json.JSONObject;
 import org.junit.After;
-import org.junit.Before;
 import org.junit.Test;
 import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
-import org.springframework.test.context.TestExecutionListeners;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
-import org.springframework.test.context.support.DependencyInjectionTestExecutionListener;
 
 import javax.ws.rs.core.MultivaluedMap;
 
 import static org.junit.Assert.assertEquals;
 
 @RunWith(SpringJUnit4ClassRunner.class)
-@ContextConfiguration
-@TestExecutionListeners({ DependencyInjectionTestExecutionListener.class})
+@ContextConfiguration(locations={"/ITTrelloTest-context.xml"})
 public class ITTrelloTest {
 
     CardDetailsConsumer topic = new CardDetailsConsumer();
-
-    @Before
-    public void before() {
-        RestAssured.baseURI = PropertyUtils.instance().getProperty("WALLET_MS_SERVICE_URI");
-    }
 
     @After
     public void after() {
