@@ -58,13 +58,6 @@ public class TrelloDAO {
             cardDetailsProducer.sendMessage(featureMessage);
         }
 
-        // status - name -- 				https://api.trello.com/1/cards/5e4e6b708116903d69587195/list?key=09a45b6ad328484d8ed4c130e99494d4
-
-        // lastUpdate - dateLastActivity -- https://trello.com/c/uVJytkMx.json?key=09a45b6ad328484d8ed4c130e99494d4
-        // commitId - from input massage
-        //description - desc -- 			https://trello.com/c/uVJytkMx.json?key=09a45b6ad328484d8ed4c130e99494d4
-        // title - name -- 					https://trello.com/c/uVJytkMx.json?key=09a45b6ad328484d8ed4c130e99494d4
-
     }
 
     public String getStatus(String cardId) {

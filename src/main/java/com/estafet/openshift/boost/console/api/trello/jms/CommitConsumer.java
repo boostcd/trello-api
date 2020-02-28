@@ -8,6 +8,9 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
+import java.util.ArrayList;
+import java.util.List;
+
 @Component
 public class CommitConsumer {
 
@@ -35,16 +38,21 @@ public class CommitConsumer {
 
     }
 
-    // TODO add check that it is just one url within splitString
     public String getUrl(String message) {
         String regex = "\\b(https?|http)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
         String[] splitString = (message.split("\\s+"));
+        List<String> matchesList = new ArrayList<>();
         for (String string : splitString) {
             if(string.matches(regex)){
-                return string+".json?";
+                matchesList.add(string);
             }
         }
-        return null;
+        if (matchesList.size()==1){
+            String url = matchesList.get(0);
+            return url+".json?";
+        } else {
+            return null;
+        }
     }
 
     private void sendUnmatchedCommit(CommitMessage commitMessage) {
