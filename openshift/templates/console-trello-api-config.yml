@@ -76,9 +76,9 @@ objects:
               - name: PRODUCT
                 value: ${PRODUCT}          
               - name: TRELLO_ACCESS_TOKEN
-                value: '445bae1e72caf59a8a78fe00c5ce36852a33a2b44a6f4d42e916804059be89ec'
+                value: ${TRELLO_ACCESS_TOKEN}
               - name: TRELLO_API_KEY
-                value: '09a45b6ad328484d8ed4c130e99494d4'
+                value: ${TRELLO_API_KEY}
               - name: JAEGER_SAMPLER_TYPE
                 value: const
               - name: JAEGER_SAMPLER_PARAM
