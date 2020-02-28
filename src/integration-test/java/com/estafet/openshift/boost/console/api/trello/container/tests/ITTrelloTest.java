@@ -60,7 +60,7 @@ public class ITTrelloTest {
         assertEquals(card.getTitle(), message.getTitle());
         assertEquals(card.getId(), message.getFeatureId());
         assertEquals(card.getLastUpdated(), message.getLastUpdated());
-//        assertEquals(card.getStatus(), message.getStatus());
+        assertEquals(card.getStatus(), message.getStatus().getValue());
 
     }
 

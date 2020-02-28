@@ -86,19 +86,7 @@ public class TrelloDAO {
             return null;
         }
 
-        FeatureStatus status = null;
-//TODO
-/*       if(card.getStatus().equals(FeatureStatus.DONE.name())){
-            status=FeatureStatus.DONE;
-        }
-        if(card.getStatus().equals(FeatureStatus.IN_PROGRESS.name())){
-            status=FeatureStatus.IN_PROGRESS;
-        }
-
-        if(card.getStatus().equals(FeatureStatus.NOT_STARTED.name())){
-            status=FeatureStatus.NOT_STARTED;
-        }
- */
+        FeatureStatus status = getFeatureStatus(card);
 
         return FeatureMessage.builder()
                 .setFeatureId(card.getId())
@@ -110,5 +98,25 @@ public class TrelloDAO {
                 .setLastUpdated(card.getLastUpdated())
                 .build();
 
+    }
+
+    private FeatureStatus getFeatureStatus(Card card) {
+        FeatureStatus status = null;
+
+        if(card.getStatus().equals(FeatureStatus.DONE.getValue())){
+             status=FeatureStatus.DONE;
+         }
+        if(card.getStatus().equals(FeatureStatus.IN_PROGRESS.getValue())){
+            status=FeatureStatus.IN_PROGRESS;
+        }
+
+        if(card.getStatus().equals(FeatureStatus.NOT_STARTED.getValue())){
+            status=FeatureStatus.NOT_STARTED;
+        }
+
+        if(card.getStatus().equals(FeatureStatus.BLOCKED.getValue())){
+            status=FeatureStatus.BLOCKED;
+        }
+        return status;
     }
 }

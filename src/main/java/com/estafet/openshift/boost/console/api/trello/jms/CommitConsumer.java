@@ -35,6 +35,7 @@ public class CommitConsumer {
 
     }
 
+    // TODO add check that it is just one url within splitString
     public String getUrl(String message) {
         String regex = "\\b(https?|http)://[-a-zA-Z0-9+&@#/%?=~_|!:,.;]*[-a-zA-Z0-9+&@#/%=~_|]";
         String[] splitString = (message.split("\\s+"));
