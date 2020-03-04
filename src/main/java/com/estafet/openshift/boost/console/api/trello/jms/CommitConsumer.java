@@ -14,7 +14,7 @@ import java.util.List;
 @Component
 public class CommitConsumer {
 
-    public final static String TOPIC = "commit-topic";
+    public final static String TOPIC = "commit.topic";
 
     private Tracer tracer;
     private TrelloService trelloService;
