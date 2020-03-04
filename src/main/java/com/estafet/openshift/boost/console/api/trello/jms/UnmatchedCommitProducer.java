@@ -18,7 +18,7 @@ public class UnmatchedCommitProducer {
 
     public void sendMessage(UnmatchedCommitMessage message) {
         jmsTemplate.setPubSubDomain(true);
-        jmsTemplate.convertAndSend("feature.topic", message.toJSON(), new MessagePostProcessor() {
+        jmsTemplate.convertAndSend("unmatched.commit.topic", message.toJSON(), new MessagePostProcessor() {
             @Override
             public Message postProcessMessage(Message message) throws JMSException {
                 message.setStringProperty("message.event.interaction.reference", UUID.randomUUID().toString());
