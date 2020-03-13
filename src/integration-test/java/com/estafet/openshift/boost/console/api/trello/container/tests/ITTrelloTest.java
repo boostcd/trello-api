@@ -1,12 +1,9 @@
 package com.estafet.openshift.boost.console.api.trello.container.tests;
 
-import com.estafet.openshift.boost.console.api.trello.model.Card;
-import com.estafet.openshift.boost.messages.model.CommitMessage;
-import com.estafet.openshift.boost.messages.model.FeatureMessage;
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.core.util.MultivaluedMapImpl;
+import static org.junit.Assert.assertEquals;
+
+import javax.ws.rs.core.MultivaluedMap;
+
 import org.json.JSONObject;
 import org.junit.After;
 import org.junit.Test;
@@ -14,9 +11,13 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import javax.ws.rs.core.MultivaluedMap;
-
-import static org.junit.Assert.assertEquals;
+import com.estafet.openshift.boost.console.api.trello.model.Card;
+import com.estafet.openshift.boost.messages.features.CommitMessage;
+import com.estafet.openshift.boost.messages.features.FeatureMessage;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.core.util.MultivaluedMapImpl;
 
 @RunWith(SpringJUnit4ClassRunner.class)
 @ContextConfiguration(locations={"/ITTrelloTest-context.xml"})

@@ -1,21 +1,22 @@
 package com.estafet.openshift.boost.console.api.trello.dao;
 
-import com.estafet.openshift.boost.console.api.trello.jms.CardDetailsProducer;
-import com.estafet.openshift.boost.console.api.trello.model.Card;
-import com.estafet.openshift.boost.messages.model.CommitMessage;
-import com.estafet.openshift.boost.messages.model.FeatureMessage;
-import com.estafet.openshift.boost.messages.model.FeatureStatus;
-import com.sun.jersey.api.client.Client;
-import com.sun.jersey.api.client.ClientResponse;
-import com.sun.jersey.api.client.WebResource;
-import com.sun.jersey.core.util.MultivaluedMapImpl;
+import javax.ws.rs.core.MultivaluedMap;
+
 import org.json.JSONObject;
 import org.slf4j.Logger;
 import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import javax.ws.rs.core.MultivaluedMap;
+import com.estafet.openshift.boost.console.api.trello.jms.CardDetailsProducer;
+import com.estafet.openshift.boost.console.api.trello.model.Card;
+import com.estafet.openshift.boost.messages.features.CommitMessage;
+import com.estafet.openshift.boost.messages.features.FeatureMessage;
+import com.estafet.openshift.boost.messages.features.FeatureStatus;
+import com.sun.jersey.api.client.Client;
+import com.sun.jersey.api.client.ClientResponse;
+import com.sun.jersey.api.client.WebResource;
+import com.sun.jersey.core.util.MultivaluedMapImpl;
 
 @Repository
 public class TrelloDAO {
@@ -54,7 +55,7 @@ public class TrelloDAO {
             String cardStatus = getStatus(cardId);
             card.setStatus(cardStatus);
 
-            FeatureMessage featureMessage = mapping(card, commitMessage);
+            FeatureMessage featureMessage = mapping(card, commitMessage, url);
             cardDetailsProducer.sendMessage(featureMessage);
         }
 
@@ -74,7 +75,7 @@ public class TrelloDAO {
 
     }
 
-    public FeatureMessage mapping(Card card, CommitMessage commitMessage) {
+    public FeatureMessage mapping(Card card, CommitMessage commitMessage, String url) {
         if(card == null){
             return null;
         }
@@ -89,6 +90,7 @@ public class TrelloDAO {
                 .setDescription(card.getDescription())
                 .setStatus(status)
                 .setLastUpdated(card.getLastUpdated())
+                .setFeatureURL(url)
                 .build();
 
     }

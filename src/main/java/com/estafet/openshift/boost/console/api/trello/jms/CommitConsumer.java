@@ -1,15 +1,17 @@
 package com.estafet.openshift.boost.console.api.trello.jms;
 
-import com.estafet.openshift.boost.console.api.trello.service.TrelloService;
-import com.estafet.openshift.boost.messages.model.CommitMessage;
-import com.estafet.openshift.boost.messages.model.UnmatchedCommitMessage;
-import io.opentracing.Tracer;
+import java.util.ArrayList;
+import java.util.List;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
-import java.util.ArrayList;
-import java.util.List;
+import com.estafet.openshift.boost.console.api.trello.service.TrelloService;
+import com.estafet.openshift.boost.messages.features.CommitMessage;
+import com.estafet.openshift.boost.messages.features.UnmatchedCommitMessage;
+
+import io.opentracing.Tracer;
 
 @Component
 public class CommitConsumer {

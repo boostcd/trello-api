@@ -4,7 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;
 import org.springframework.stereotype.Component;
 
-import com.estafet.openshift.boost.messages.model.UnmatchedCommitMessage;
+import com.estafet.openshift.boost.messages.features.UnmatchedCommitMessage;
 
 @Component
 public class UnmatchedCommitProducer {
