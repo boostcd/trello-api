@@ -90,7 +90,7 @@ public class TrelloDAO {
                 .setDescription(card.getDescription())
                 .setStatus(status)
                 .setLastUpdated(card.getLastUpdated())
-                .setFeatureURL(url.replaceAll("\\.json", ""))
+                .setFeatureURL(url.replaceAll("\\.json\\?", ""))
                 .build();
 
     }
