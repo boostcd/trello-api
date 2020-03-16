@@ -24,20 +24,21 @@ public class CommitConsumer {
 
     @JmsListener(destination = TOPIC, containerFactory = "myFactory")
     public void onMessage(String message) {
-        CommitMessage commitMessage = CommitMessage.fromJSON(message);
-        String url = getUrl(commitMessage.getMessage());
-        if(url==null){
-            sendUnmatchedCommit(commitMessage);
-        } else {
-            try {
-                trelloService.getTrelloCardDetails(url, commitMessage);
-            } finally {
-                if (tracer.activeSpan() != null) {
-                    tracer.activeSpan().close();
+    	if (System.getenv("TASK_MANAGER").equals("trello")) {
+            CommitMessage commitMessage = CommitMessage.fromJSON(message);
+            String url = getUrl(commitMessage.getMessage());
+            if(url==null){
+                sendUnmatchedCommit(commitMessage);
+            } else {
+                try {
+                    trelloService.getTrelloCardDetails(url, commitMessage);
+                } finally {
+                    if (tracer.activeSpan() != null) {
+                        tracer.activeSpan().close();
+                    }
                 }
-            }
-        }
-
+            }    		
+    	}
     }
 
     public String getUrl(String message) {

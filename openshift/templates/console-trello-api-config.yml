@@ -38,6 +38,9 @@ parameters:
 - description: Defines the trello api key
   name: TRELLO_API_KEY
   required: true          
+- description: Defines the tasks manager
+  name: TASK_MANAGER
+  required: true  
 objects:
 - apiVersion: v1
   kind: DeploymentConfig
@@ -73,6 +76,8 @@ objects:
       spec:
         containers:
           - env:
+              - name: TASK_MANAGER
+                value: ${TASK_MANAGER}
               - name: PRODUCT
                 value: ${PRODUCT}          
               - name: TRELLO_ACCESS_TOKEN
