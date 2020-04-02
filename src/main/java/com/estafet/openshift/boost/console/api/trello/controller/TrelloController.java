@@ -6,6 +6,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.estafet.openshift.boost.commons.lib.model.API;
@@ -24,8 +25,8 @@ public class TrelloController {
 		return new API(appVersion);
 	}
 	
-	@GetMapping("/card/{url}")
-	public Card getTrelloCard(@PathVariable String url ) {
+	@GetMapping("/card")
+	public Card getTrelloCard(@RequestBody String url ) {
 		return trelloService.getTrelloCardDetails(url);
 	}
 }
