@@ -28,39 +28,44 @@ public class TrelloDAO {
 
     public void getTrelloCardDetails(String url, CommitMessage commitMessage) {
 
+    		Card card = getTrelloCardDetails(url);
+            FeatureMessage featureMessage = mapping(card, commitMessage, url);
+            cardDetailsProducer.sendMessage(featureMessage);
+        
+    }
+
+    public Card getTrelloCardDetails(String url) {
         Client client = Client.create();
         WebResource webResource =client.resource(url);
         MultivaluedMap<String, String> queryParams = new MultivaluedMapImpl();
         queryParams.add("key", getTrelloApiKey());
         queryParams.add("token", getTrelloAccessToken());
         ClientResponse response = webResource.queryParams(queryParams).get(ClientResponse.class);
-
+        Card card = new Card();
         int statusCode;
         if(response!=null){
             statusCode = response.getStatus();
         } else {
             logger.error("no any Trello's response");
-            return;
+            return null;
         }
 
         if (statusCode == 401) {
             logger.error("unauthorized card permission requested");
-            return;
+            return null;
         }
 
         if (statusCode == 200){
-            Card card = Card.fromJSON(response.getEntity(String.class));
+            card = Card.fromJSON(response.getEntity(String.class));
             String cardId = card.getId();
 
             String cardStatus = getStatus(cardId);
             card.setStatus(cardStatus);
-
-            FeatureMessage featureMessage = mapping(card, commitMessage, url);
-            cardDetailsProducer.sendMessage(featureMessage);
         }
-
+        return card;
     }
-
+        
+    
     public String getStatus(String cardId) {
 
         Client client = Client.create();
