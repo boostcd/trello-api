@@ -35,7 +35,6 @@ public class TrelloDAO {
     }
 
     public Card getTrelloCardDetails(String url) {
-		System.out.println("In DAO ");
         Client client = Client.create();
         WebResource webResource =client.resource(url);
         MultivaluedMap<String, String> queryParams = new MultivaluedMapImpl();
