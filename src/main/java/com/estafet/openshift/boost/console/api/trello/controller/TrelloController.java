@@ -2,7 +2,8 @@ package com.estafet.openshift.boost.console.api.trello.controller;
 
 import com.estafet.openshift.boost.console.api.trello.model.Card;
 import com.estafet.openshift.boost.console.api.trello.model.Url;
-import com.estafet.openshift.boost.console.api.trello.service.TrelloService;
+import com.estafet.openshift.boost.console.api.trello.service.TrelloServiceImpl;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -19,7 +20,7 @@ public class TrelloController {
 	private String appVersion;
 
 	@Autowired
-	private TrelloService trelloService;
+	private TrelloServiceImpl trelloService;
 	
 	@GetMapping("/api")
 	public API getAPI() {
