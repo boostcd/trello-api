@@ -28,7 +28,7 @@ public class TrelloController {
 	}
 	
 	@GetMapping("/card")
-	public Card getTrelloCard(@RequestBody String url ) {
-		return trelloService.getTrelloCardDetails(url);
+	public Card getTrelloCard(@RequestBody Url url ) {
+		return trelloService.getTrelloCardDetails(url.getUrl());
 	}
 }
