@@ -18,6 +18,7 @@ public class TrelloServiceImpl implements TrelloService {
 
     @Override
     public Card getTrelloCardDetails(String url) {
+		System.out.println("In Trello Service");
     	return trelloDAO.getTrelloCardDetails(url);
     }
     
