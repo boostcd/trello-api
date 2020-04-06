@@ -28,8 +28,8 @@ public class TrelloController {
 	}
 	
 	@GetMapping("/card")
-	public Card getTrelloCard(@RequestBody Url url ) {
-		System.out.println("In trello MS. URL: " + url);
-		return trelloService.getTrelloCardDetails(url.getUrl());
+	public Card getTrelloCard(@PathVariable String url_extension ) {
+		System.out.println("In trello MS. URL: " + url_extension);
+		return trelloService.getTrelloCardDetails("https://trello.com/c/" +  url_extension + ".json?");
 	}
 }
