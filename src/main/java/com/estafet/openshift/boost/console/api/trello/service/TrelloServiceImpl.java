@@ -17,8 +17,8 @@ public class TrelloServiceImpl implements TrelloService {
     }
 
     @Override
-    public Card getTrelloCardDetails(String url) {
-    	return trelloDAO.getTrelloCardDetails(url);
+    public Card getTrelloCardDetails(String url_extension) {
+    	return trelloDAO.getTrelloCardDetails("https://trello.com/c/" + url_extension + ".json?");
     }
     
     @Autowired

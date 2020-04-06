@@ -30,6 +30,6 @@ public class TrelloController {
 	@GetMapping("/card/{url_extension}")
 	public Card getTrelloCard(@PathVariable String url_extension ) {
 		System.out.println("In trello MS. URL: " + url_extension);
-		return trelloService.getTrelloCardDetails("https://trello.com/c/" +  url_extension + ".json?");
+		return trelloService.getTrelloCardDetails(url_extension + ".json?");
 	}
 }
