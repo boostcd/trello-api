@@ -29,6 +29,7 @@ public class TrelloController {
 	
 	@GetMapping("/card")
 	public Card getTrelloCard(@RequestBody Url url ) {
+		System.out.println("In trello MS. URL: " + url);
 		return trelloService.getTrelloCardDetails(url.getUrl());
 	}
 }
