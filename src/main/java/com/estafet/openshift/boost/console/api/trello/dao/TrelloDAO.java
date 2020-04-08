@@ -96,6 +96,7 @@ public class TrelloDAO {
                 .setStatus(status)
                 .setLastUpdated(card.getLastUpdated())
                 .setFeatureURL(url.replaceAll("\\.json\\?", ""))
+                .setMessage(commitMessage.getMessage())
                 .build();
 
     }
