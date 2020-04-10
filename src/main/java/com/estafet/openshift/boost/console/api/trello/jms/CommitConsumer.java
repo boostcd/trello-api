@@ -9,7 +9,6 @@ import org.springframework.stereotype.Component;
 
 import com.estafet.openshift.boost.console.api.trello.service.TrelloService;
 import com.estafet.openshift.boost.messages.features.CommitMessage;
-import com.estafet.openshift.boost.messages.features.UnmatchedCommitMessage;
 
 import io.opentracing.Tracer;
 
@@ -20,24 +19,21 @@ public class CommitConsumer {
 
     private Tracer tracer;
     private TrelloService trelloService;
-    private UnmatchedCommitProducer unmatchedCommitProducer;
 
     @JmsListener(destination = TOPIC, containerFactory = "myFactory")
     public void onMessage(String message) {
     	if (System.getenv("TASK_MANAGER").equals("trello")) {
             CommitMessage commitMessage = CommitMessage.fromJSON(message);
             String url = getUrl(commitMessage.getMessage());
-            if(url==null){
-                sendUnmatchedCommit(commitMessage);
-            } else {
-                try {
+            if(url != null){
+            	try {
                     trelloService.getTrelloCardDetails(url, commitMessage);
                 } finally {
                     if (tracer.activeSpan() != null) {
                         tracer.activeSpan().close();
                     }
                 }
-            }    		
+            }
     	}
     }
 
@@ -58,12 +54,6 @@ public class CommitConsumer {
         }
     }
 
-    private void sendUnmatchedCommit(CommitMessage commitMessage) {
-        unmatchedCommitProducer.sendMessage(UnmatchedCommitMessage.builder()
-                .setCommitId(commitMessage.getCommitId())
-                .setRepo(commitMessage.getRepo())
-                .build());
-    }
 
     @Autowired
     public void setTracer(Tracer tracer) {
@@ -75,8 +65,4 @@ public class CommitConsumer {
         this.trelloService = trelloService;
     }
 
-    @Autowired
-    public void setUnmatchedCommitProducer(UnmatchedCommitProducer unmatchedCommitProducer) {
-        this.unmatchedCommitProducer = unmatchedCommitProducer;
-    }
 }
