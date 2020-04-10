@@ -60,7 +60,6 @@ public class CommitConsumer {
 
     private void sendUnmatchedCommit(CommitMessage commitMessage) {
         unmatchedCommitProducer.sendMessage(UnmatchedCommitMessage.builder()
-        		.setMessage(commitMessage.getMessage())
                 .setCommitId(commitMessage.getCommitId())
                 .setRepo(commitMessage.getRepo())
                 .build());
