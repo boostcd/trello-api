@@ -93,6 +93,11 @@ objects:
                   secretKeyRef:
                     name: ${MICROSERVICE} 
                     key: TRELLO_API_KEY 
+              - name: JAEGER_SERVICE_NAME
+                valueFrom:
+                  configMapKeyRef:
+                    name: ${MICROSERVICE} 
+                    key: JAEGER_SERVICE_NAME                       
               - name: JAEGER_SAMPLER_TYPE
                 valueFrom:
                   configMapKeyRef:
