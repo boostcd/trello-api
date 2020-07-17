@@ -1,4 +1,4 @@
-package com.estafet.openshift.boost.console.api.trello.dao;
+package com.estafet.boostcd.trello.api.dao;
 
 import javax.ws.rs.core.MultivaluedMap;
 
@@ -8,8 +8,8 @@ import org.slf4j.LoggerFactory;
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
-import com.estafet.openshift.boost.console.api.trello.jms.CardDetailsProducer;
-import com.estafet.openshift.boost.console.api.trello.model.Card;
+import com.estafet.boostcd.trello.api.jms.CardDetailsProducer;
+import com.estafet.boostcd.trello.api.model.Card;
 import com.estafet.openshift.boost.messages.features.CommitMessage;
 import com.estafet.openshift.boost.messages.features.FeatureMessage;
 import com.estafet.openshift.boost.messages.features.FeatureStatus;

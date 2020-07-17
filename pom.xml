@@ -11,7 +11,7 @@
 
 	<properties>
 		<microservice>console-trello-api</microservice>
-		<entity.package>com.estafet.openshift.boost.console.api.trello.model</entity.package>
+		<entity.package>com.estafet.boostcd.trello.api.model</entity.package>
 	</properties>
 
 	<dependencies>

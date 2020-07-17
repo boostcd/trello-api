@@ -1,4 +1,4 @@
-package com.estafet.openshift.boost.console.api.trello.jms;
+package com.estafet.boostcd.trello.api.jms;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.core.JmsTemplate;

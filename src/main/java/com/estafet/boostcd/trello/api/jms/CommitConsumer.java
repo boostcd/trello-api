@@ -1,4 +1,4 @@
-package com.estafet.openshift.boost.console.api.trello.jms;
+package com.estafet.boostcd.trello.api.jms;
 
 import java.util.ArrayList;
 import java.util.List;
@@ -7,7 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.jms.annotation.JmsListener;
 import org.springframework.stereotype.Component;
 
-import com.estafet.openshift.boost.console.api.trello.service.TrelloService;
+import com.estafet.boostcd.trello.api.service.TrelloService;
 import com.estafet.openshift.boost.messages.features.CommitMessage;
 
 import io.opentracing.Tracer;

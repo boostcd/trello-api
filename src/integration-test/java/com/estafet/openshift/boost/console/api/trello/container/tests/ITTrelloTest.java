@@ -11,7 +11,7 @@ import org.junit.runner.RunWith;
 import org.springframework.test.context.ContextConfiguration;
 import org.springframework.test.context.junit4.SpringJUnit4ClassRunner;
 
-import com.estafet.openshift.boost.console.api.trello.model.Card;
+import com.estafet.boostcd.trello.api.model.Card;
 import com.estafet.openshift.boost.messages.features.CommitMessage;
 import com.estafet.openshift.boost.messages.features.FeatureMessage;
 import com.sun.jersey.api.client.Client;

@@ -1,4 +1,4 @@
-package com.estafet.openshift.boost.console.api.trello.model;
+package com.estafet.boostcd.trello.api.model;
 
 
 public class Url {

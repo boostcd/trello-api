@@ -1,8 +1,4 @@
-package com.estafet.openshift.boost.console.api.trello.controller;
-
-import com.estafet.openshift.boost.console.api.trello.model.Card;
-import com.estafet.openshift.boost.console.api.trello.model.Url;
-import com.estafet.openshift.boost.console.api.trello.service.TrelloServiceImpl;
+package com.estafet.boostcd.trello.api.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.beans.factory.annotation.Value;
@@ -11,6 +7,9 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RequestBody;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.estafet.boostcd.trello.api.model.Card;
+import com.estafet.boostcd.trello.api.model.Url;
+import com.estafet.boostcd.trello.api.service.TrelloServiceImpl;
 import com.estafet.openshift.boost.commons.lib.model.API;
 
 @RestController

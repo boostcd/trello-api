@@ -1,4 +1,4 @@
-package com.estafet.openshift.boost.console.api.trello;
+package com.estafet.boostcd.trello.api;
 
 import io.opentracing.Tracer;
 import io.opentracing.contrib.jms.spring.TracingJmsTemplate;
