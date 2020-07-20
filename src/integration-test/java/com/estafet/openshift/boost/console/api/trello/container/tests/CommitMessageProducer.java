@@ -1,6 +1,6 @@
 package com.estafet.openshift.boost.console.api.trello.container.tests;
 
-import com.estafet.openshift.boost.commons.lib.jms.TopicProducer;
+import com.estafet.boostcd.jms.TopicProducer;
 
 public class CommitMessageProducer extends TopicProducer {
 
