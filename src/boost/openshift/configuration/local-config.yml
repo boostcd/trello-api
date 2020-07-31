@@ -1,6 +1,4 @@
 config_map: 
-  - name: PRODUCT
-    value: "{{ product.name }}"
   - name: TASK_MANAGER
     value: "{{ task_manager.name }}"        
   - name: JBOSS_A_MQ_BROKER_URL

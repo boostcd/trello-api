@@ -34,9 +34,6 @@ parameters:
 - description: Defines docker registry
   name: DOCKER_IMAGE_LABEL
   required: true    
-- description: Defines the product that this template is related to
-  name: PRODUCT
-  required: true  
 objects:
 - apiVersion: v1
   kind: DeploymentConfig
@@ -75,12 +72,7 @@ objects:
                 valueFrom:
                   configMapKeyRef:
                     name: ${MICROSERVICE} 
-                    key: TASK_MANAGER
-              - name: PRODUCT
-                valueFrom:
-                  configMapKeyRef:
-                    name: ${MICROSERVICE} 
-                    key: PRODUCT          
+                    key: TASK_MANAGER       
               - name: TRELLO_ACCESS_TOKEN
                 valueFrom:
                   secretKeyRef:
